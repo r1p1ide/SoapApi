@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
+        <property name="scopes">
+            <map>
+                <entry key="thread">
+                    <bean class="org.springframework.context.support.SimpleThreadScope"/>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="proxyConfig"
+          factory-bean="proxyConfigSupport"
+          factory-method="create"/>
+
+    <bean id="proxyConfigSupport" class="net.ttddyy.dsproxy.support.ProxyConfigSpringXmlSupport">
+        <property name="dataSourceName" value="dataSource"/>
+        <property name="queryListener" ref="queryListener"/>
+    </bean>
+
+    <bean id="queryListener" class="net.ttddyy.dsproxy.listener.ChainListener">
+        <property name="listeners">
+            <list>
+                <bean class="com.example.soapApi.logging.ConnectionLoggingListener"/>
+
+            </list>
+        </property>
+    </bean>
+
+    <bean id="prettyQueryEntryCreater" class="com.example.soapApi.logging.PrettyHighLightQueryEntryCreator"/>
+
+    <bean id="dataSource" class="net.ttddyy.dsproxy.support.ProxyDataSource" primary="true">
+        <property name="dataSource" ref="dataSourceHikari"/>
+        <property name="proxyConfig" ref="proxyConfig"/>
+    </bean>
+
+    <bean id="dataSourceHikari" class="com.zaxxer.hikari.HikariDataSource">
+        <property name="jdbcUrl" value="${spring.datasource.url}"/>
+        <property name="username" value="${spring.datasource.username}"/>
+        <property name="password" value="${spring.datasource.password}"/>
+        <property name="driverClassName" value="${spring.datasource.driverClassName}"/>
+        <property name="minimumIdle" value="${spring.datasource.hikari.minimum-idle}"/>
+        <property name="maximumPoolSize" value="${spring.datasource.hikari.maximum-pool-size}"/>
+        <property name="poolName" value="dbPool"/>
+        <property name="autoCommit" value="true"/>
+        <property name="connectionTimeout" value="1000"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" primary="true">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="NamedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate" primary="true">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" primary="true">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+</beans>

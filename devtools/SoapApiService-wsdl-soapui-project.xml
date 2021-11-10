@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="d47b3d3d-9b10-4e92-b2ea-fe4ab6ed9bf0" activeEnvironment="Default" name="SoapApiService?wsdl" resourceRoot="" soapui-version="5.6.0" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="237cfe74-af37-4bcd-a984-af4dcf4866d3" wsaVersion="NONE" name="SoapPortSoapBinding" type="wsdl" bindingName="{http://r1ptide.com/soap}SoapPortSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/soapApi/SoapApiService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/soapApi/SoapApiService?wsdl"><con:part><con:url>http://localhost:8080/soapApi/SoapApiService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SoapPort" targetNamespace="http://r1ptide.com/soap" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://r1ptide.com/soap" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://r1ptide.com/soap" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="Income" nillable="true" type="xs:anyType"/>
+      <xs:element name="Outcome" nillable="true" type="xs:anyType"/>
+      <xs:element name="income" type="tns:income"/>
+      <xs:element name="incomeResponse" type="tns:incomeResponse"/>
+      <xs:element name="outcome" type="tns:outcome"/>
+      <xs:element name="outcomeResponse" type="tns:outcomeResponse"/>
+      <xs:complexType name="outcome">
+        <xs:sequence>
+          <xs:element name="Income" type="tns:OutcomeRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="OutcomeRequest">
+        <xs:sequence>
+          <xs:element form="qualified" name="color" type="xs:string"/>
+          <xs:element form="qualified" name="cottonPart" type="xs:int"/>
+          <xs:element form="qualified" name="amount" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="outcomeResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:OutcomeResponseDto"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="OutcomeResponseDto">
+        <xs:sequence>
+          <xs:element form="qualified" minOccurs="0" name="code" type="xs:string"/>
+          <xs:element form="qualified" minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="income">
+        <xs:sequence>
+          <xs:element name="Income" type="tns:IncomeRequest"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IncomeRequest">
+        <xs:sequence>
+          <xs:element form="qualified" name="color" type="xs:string"/>
+          <xs:element form="qualified" name="cottonPart" type="xs:int"/>
+          <xs:element form="qualified" name="amount" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="incomeResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:IncomeResponseDto"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="IncomeResponseDto">
+        <xs:sequence>
+          <xs:element form="qualified" minOccurs="0" name="code" type="xs:string"/>
+          <xs:element form="qualified" minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="income">
+    <wsdl:part element="tns:income" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="outcomeResponse">
+    <wsdl:part element="tns:outcomeResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="incomeResponse">
+    <wsdl:part element="tns:incomeResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="outcome">
+    <wsdl:part element="tns:outcome" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SoapApiService">
+    <wsdl:operation name="outcome">
+      <wsdl:input message="tns:outcome" name="outcome"></wsdl:input>
+      <wsdl:output message="tns:outcomeResponse" name="outcomeResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="income">
+      <wsdl:input message="tns:income" name="income"></wsdl:input>
+      <wsdl:output message="tns:incomeResponse" name="incomeResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SoapPortSoapBinding" type="tns:SoapApiService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="outcome">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="outcome">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="outcomeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="income">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="income">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="incomeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SoapPort">
+    <wsdl:port binding="tns:SoapPortSoapBinding" name="SoapPort">
+      <soap:address location="http://localhost:8080/soapApi/SoapApiService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/soapApi/SoapApiService</con:endpoint></con:endpoints><con:operation id="e4fc618e-f140-4c44-b9fc-69638d0b394f" isOneWay="false" action="" name="income" bindingOperationName="income" type="Request-Response" outputName="incomeResponse" inputName="income" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="90287de5-0372-452f-ab58-a41f9ab55d88" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapApi/SoapApiService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://r1ptide.com/soap">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <soap:income>
+         <Income>
+            <soap:color>red</soap:color>
+            <soap:cottonPart>94</soap:cottonPart>
+            <soap:amount>1000</soap:amount>
+         </Income>
+      </soap:income>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://r1ptide.com/soap/SoapApiService/income"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="dc504c6b-d49a-4b7e-ae58-6330333218c6" isOneWay="false" action="" name="outcome" bindingOperationName="outcome" type="Request-Response" outputName="outcomeResponse" inputName="outcome" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="66e5bae2-2219-4963-bab4-f7a72c557877" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/soapApi/SoapApiService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soap="http://r1ptide.com/soap">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <soap:outcome>\r
+         <Income>\r
+            <soap:color>red</soap:color>\r
+            <soap:cottonPart>94</soap:cottonPart>\r
+            <soap:amount>100</soap:amount>\r
+         </Income>\r
+      </soap:outcome>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://r1ptide.com/soap/SoapApiService/outcome"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

@@ -1,0 +1,9 @@
+FROM openjdk:8
+
+WORKDIR /app
+
+ADD target/SoapApi-0.0.1-SNAPSHOT.jar .
+
+CMD ["java", \
+"-Duser.timezone=GMT+3:00", \
+"-jar", "SoapApi-0.0.1-SNAPSHOT.jar"]
