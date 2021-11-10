@@ -1,4 +1,4 @@
-# SocksApi
+# SoapApi
 Application for automating the accounting of socks in a store warehouse.
 
 # Information For Developers
